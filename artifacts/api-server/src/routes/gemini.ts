@@ -6,7 +6,7 @@ const router: IRouter = Router();
 const requestTimesByClient = new Map<string, number[]>();
 const MAX_REQUESTS_PER_WINDOW = 10;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
-const GEMINI_MODEL = "gemini-3.8-flash";
+const GEMINI_MODEL = "gemini-3.1-flash-lite";
 
 type GeminiResponse = {
   candidates?: Array<{
