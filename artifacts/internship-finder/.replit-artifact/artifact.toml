@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Internship Finder Agent"
+description = "A personal AI internship finder for V Sailatha that matches opportunities to skills and prepares tailored, copyable cover letters. Includes realistic demo listings clearly identified as sample data."
+version = "1.0.0"
+id = "artifacts/internship-finder"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23835
+
+[services.development]
+run = "pnpm --filter @workspace/internship-finder run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/internship-finder", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/internship-finder/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23835"
+BASE_PATH = "/"
