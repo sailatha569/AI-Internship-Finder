@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: gemini
+    description: Gemini AI-powered internship application tools
 paths:
   /healthz:
     get:
@@ -24,6 +26,36 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /gemini/cover-letter:
+    post:
+      operationId: generateCoverLetter
+      tags: [gemini]
+      summary: Generate a personalized internship cover letter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CoverLetterInput"
+      responses:
+        "200":
+          description: Generated cover letter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CoverLetterOutput"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+        "502":
+          description: AI provider request failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +65,57 @@ components:
           type: string
       required:
         - status
+    CoverLetterInput:
+      type: object
+      properties:
+        candidateName:
+          type: string
+          minLength: 1
+          maxLength: 100
+        skills:
+          type: array
+          items:
+            type: string
+            maxLength: 60
+          minItems: 1
+          maxItems: 12
+        experience:
+          type: string
+          maxLength: 1200
+        role:
+          type: string
+          minLength: 1
+          maxLength: 160
+        company:
+          type: string
+          minLength: 1
+          maxLength: 160
+        location:
+          type: string
+          maxLength: 120
+        duration:
+          type: string
+          maxLength: 80
+        description:
+          type: string
+          maxLength: 1200
+      required:
+        - candidateName
+        - skills
+        - role
+        - company
+    CoverLetterOutput:
+      type: object
+      properties:
+        coverLetter:
+          type: string
+      required:
+        - coverLetter
+    GeminiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
 

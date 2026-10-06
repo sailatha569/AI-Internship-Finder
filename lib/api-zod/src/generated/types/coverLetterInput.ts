@@ -5,9 +5,6 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-export interface HealthStatus {
-  status: string;
-}
 
 export interface CoverLetterInput {
   /**
@@ -40,12 +37,3 @@ export interface CoverLetterInput {
   /** @maxLength 1200 */
   description?: string;
 }
-
-export interface CoverLetterOutput {
-  coverLetter: string;
-}
-
-export interface GeminiError {
-  error: string;
-}
-
