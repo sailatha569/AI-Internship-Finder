@@ -6,7 +6,7 @@ const router: IRouter = Router();
 const requestTimesByClient = new Map<string, number[]>();
 const MAX_REQUESTS_PER_WINDOW = 10;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
-const GEMINI_MODEL = "gemini-2.5-flash";
+const GEMINI_MODEL = "gemini-3.8-flash";
 
 type GeminiResponse = {
   candidates?: Array<{
@@ -123,7 +123,6 @@ router.post("/gemini/cover-letter", async (req, res) => {
               },
             ],
             generationConfig: {
-              temperature: 0.65,
               maxOutputTokens: 8192,
             },
           }),
